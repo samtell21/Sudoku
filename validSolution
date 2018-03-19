@@ -1,0 +1,21 @@
+def check t
+  return false if t.uniq.length != 9
+  t.each{|i| return false if i< 1 or i > 9}
+  return true
+end
+
+def validSolution(b)
+  b.each{|r| return false if !check(r)}
+  
+  9.times do |i| 
+    c = b.map{|r| r[i]}
+    return false if !check(c)
+  end
+  
+  [(0..2),(3..5),(6..8)].each do |g|
+    a =(0..8).to_a.map{|i| b[i][g]}.join.chars.map(&:to_i)
+    [(0..8),(9..17),(18..26)].each{|r| return false if !check(a[r])}
+  end
+  
+  true
+end
